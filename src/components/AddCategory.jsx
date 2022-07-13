@@ -1,6 +1,6 @@
 import { useState } from 'react';
 
-export const AddCategory = () => {
+export const AddCategory = ({setCategories}) => {
 
     const [inputValue, setinputValue] = useState('');
 
@@ -10,11 +10,13 @@ export const AddCategory = () => {
 
     const onSubmit = (event) =>{
         event.preventDefault(); //Evita el refresh de la web
-        console.log(inputValue);
+        if (inputValue.trim().length <= 1) return;
+        setCategories(categories => [inputValue, ...categories]);
+        setinputValue('');
     }
 
     return(
-        <form onSubmit={(event) => onSubmit(event)}>
+        <form onSubmit={onSubmit}>
             <input
                 type="Text"
                 placeholder="Buscar gifs"
